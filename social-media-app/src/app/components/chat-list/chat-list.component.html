@@ -1,0 +1,15 @@
+<div class="chat-list">
+  <h3>Chats</h3>
+  <ul>
+    <li *ngFor="let user of users" (click)="selectUser(user)">
+      {{ user.username }}
+    </li>
+  </ul>
+</div>
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search users..." (input)="searchUsers()" />
+<ul>
+  <li *ngFor="let user of filteredUsers" (click)="selectUser(user)">
+    {{ user.username }}
+  </li>
+</ul>
+

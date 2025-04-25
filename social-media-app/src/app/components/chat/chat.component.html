@@ -1,0 +1,60 @@
+<div class="chat-container">
+  <!-- Список чатов -->
+  <div class="chat-list">
+    <div class="user-info" style="display: flex; align-items: center; margin-bottom: 1rem;">
+      <img *ngIf="avatar" [src]="avatar" alt="avatar" width="50" height="50" style="border-radius: 50%; margin-right: 10px;" />
+      <span>{{ username }}</span>
+    </div>
+    <h3>Chats</h3>
+
+    <!-- Поиск пользователей -->
+    <input
+      [(ngModel)]="searchTerm"
+      (input)="searchUsers()"
+      placeholder="Search user..."
+      class="search-input"
+    />
+
+    <!-- Результаты поиска -->
+    <div class="search-results" *ngIf="searchResults.length > 0">
+      <ul>
+        <li *ngFor="let user of searchResults" (click)="openChatWith(user)">
+          🔍 {{ user.username }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Список активных чатов -->
+    <ul>
+      <li *ngFor="let room of chatRooms" (click)="onUserSelected(room.other_user)">
+        💬 {{ room.other_user?.username }}
+      </li>
+    </ul>
+
+    <button (click)="onLogout()">Logout</button>
+  </div>
+
+  <!-- Окно чата -->
+  <div class="chat-window">
+    <div class="chat-header" *ngIf="selectedUser">
+      <h3>Chat with {{ selectedUser?.username }}</h3>
+    </div>
+
+    <div class="messages">
+      <div *ngFor="let msg of messages" style="margin-bottom: 10px;">
+        <strong>{{ msg.sender }}</strong>: {{ msg.message || msg.text }}
+      </div>
+    </div>
+
+    <!-- Форма отправки сообщения -->
+    <form (submit)="sendMessage()">
+      <input
+        [(ngModel)]="newMessage"
+        name="message"
+        placeholder="Type a message..."
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>

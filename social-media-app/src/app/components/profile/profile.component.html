@@ -1,0 +1,14 @@
+<h2>Профиль</h2>
+
+<div>
+  <label>Имя пользователя:</label>
+  <input [(ngModel)]="username" />
+</div>
+
+<div>
+  <label>Аватар:</label><br />
+  <img *ngIf="avatar" [src]="avatar" alt="avatar" width="100" />
+  <input type="file" (change)="onFileSelected($event)" />
+</div>
+
+<button (click)="saveProfile()">Сохранить</button>
